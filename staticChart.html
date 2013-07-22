@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="Google Charts">
+    <meta name="author" content="Mauro Alvarez">
+    <meta name="keywords" content="Google Charts, Example, Charts">
+
+    <link href="css/modern.css" rel="stylesheet">
+    <link href="css/modern-responsive.css" rel="stylesheet">
+
+    <script type="text/javascript" src="js/lib/google-code-prettify/prettify.js"></script>
+    <link href="js/lib/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="js/lib/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.mousewheel.min.js"></script>
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
+    <!-- Script for Static Table -->
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Get table values
+        var tableBody = getTableBody();
+
+        var tableHead = getTableHead();
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', tableHead[0]);
+        data.addColumn('number', tableHead[1]);
+        data.addRows( tableBody);
+
+        // Set chart options
+        var options = {'title':'Payment Usage Statistics',
+                       'width':460,
+                       'height':360};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+
+      function getTableHead(){
+
+        var tableHead = $('#tablePayments thead tr:has(th)').map(function(i, v) {
+            var $th =  $('th', this);
+                return [
+                         $th.eq(0).text(),
+                         $th.eq(1).text()
+                       ]
+        }).get();
+
+        return tableHead
+
+      }
+
+      function getTableBody(){
+
+        var tableBody = $('#tablePayments tbody tr:has(td)').map(function(i, v) {
+            var $td =  $('td', this);
+                return [
+                         [$td.eq(0).text(),
+                         parseFloat($td.eq(1).text())]
+                       ]
+        }).get();
+
+        return tableBody;
+
+      }
+
+    </script>
+
+    <title>Google Charts</title>
+
+  </head>
+
+<body class="metrouicss" onload="prettyPrint()">
+
+</div>
+
+    <div class="page secondary">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>Google Charts<small>demo</small></h1>
+                <a href="/" class="back-button big page-back"></a>
+            </div>
+        </div>
+
+
+
+        <div class="page-region">
+
+                <div class="grid">
+                    <div class="row">
+
+
+                      <div class="span6 page-region-content">
+                        <div id="chart_div"></div>
+                      </div>
+
+                  
+                  
+                      <div class="span10 page-region-content">
+
+                        <h2>Static Table</h2>
+
+                        <table id="tablePayments" class="striped border hovered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="right">Value</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                  <td>PayPal</td>
+                                  <td class="right">44.26%</td>
+                                </tr>
+                                <tr>
+                                  <td>CCBill</td>
+                                  <td class="right">22.95%</td>
+                                </tr>
+                                <tr>
+                                  <td>Bill Me Later</td>
+                                  <td class="right">18.03%</td>
+                                </tr>
+                                <tr>
+                                  <td>Flattr</td>
+                                  <td class="right">4.92%</td>
+                                </tr>
+                                <tr>
+                                  <td>Google Checkout</td>
+                                  <td class="right">4.92%</td>
+                                </tr>
+                                <tr>
+                                  <td>Zombaio</td>
+                                  <td class="right">2.46%</td>
+                                </tr>
+                                <tr>
+                                  <td>Stripe</td>
+                                  <td class="right">1.64%</td>
+                                </tr>
+                            </tbody>
+
+                            <tfoot></tfoot>
+                        </table>
+
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+
+                      <div class="span12 page-region-content">
+
+                        <pre class="prettyprint linenums">
+                          // Load the Visualization API and the piechart package.
+                          google.load('visualization', '1.0', {'packages':['corechart']});
+
+                          // Set a callback to run when the Google Visualization API is loaded.
+                          google.setOnLoadCallback(drawChart);
+
+                          // Callback that creates and populates a data table,
+                          // instantiates the pie chart, passes in the data and
+                          // draws it.
+                          function drawChart() {
+
+                            // Get table values
+                            var tableBody = getTableBody();
+
+                            var tableHead = getTableHead();
+
+                            // Create the data table.
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', tableHead[0]);
+                            data.addColumn('number', tableHead[1]);
+                            data.addRows( tableBody);
+
+                            // Set chart options
+                            var options = {'title':'Payment Usage Statistics',
+                                           'width':460,
+                                           'height':360};
+
+                            // Instantiate and draw our chart, passing in some options.
+                            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                            chart.draw(data, options);
+                          }
+
+
+                          function getTableHead(){
+
+                            var tableHead = $('#tablePayments thead tr:has(th)').map(function(i, v) {
+                                var $th =  $('th', this);
+                                    return [
+                                             $th.eq(0).text(),
+                                             $th.eq(1).text()
+                                           ]
+                            }).get();
+
+                            return tableHead
+
+                          }
+
+                          function getTableBody(){
+
+                            var tableBody = $('#tablePayments tbody tr:has(td)').map(function(i, v) {
+                                var $td =  $('td', this);
+                                    return [
+                                             [$td.eq(0).text(),
+                                             parseFloat($td.eq(1).text())]
+                                           ]
+                            }).get();
+
+                            return tableBody;
+
+                          }
+                        </pre>
+
+                      </div>
+
+                    </div>
+
+                </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="nav-bar">
+            <div class="nav-bar-inner padding10">
+                <span class="element">
+                    2013, Google Charts &copy; by <a class="fg-color-white" href="mailto:contact@mauroalvarez.com">Mauro Alvarez</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- Le javascript
+    ================================================== -->
+
+
+    <script type="text/javascript" src="js/dropdown.js"></script>
+    <script type="text/javascript" src="js/accordion.js"></script>
+    <script type="text/javascript" src="js/buttonset.js"></script>
+    <script type="text/javascript" src="js/carousel.js"></script>
+    <script type="text/javascript" src="js/input-control.js"></script>
+    <script type="text/javascript" src="js/pagecontrol.js"></script>
+    <script type="text/javascript" src="js/rating.js"></script>
+    <script type="text/javascript" src="js/slider.js"></script>
+    <script type="text/javascript" src="js/tile-slider.js"></script>
+    <script type="text/javascript" src="js/tile-drag.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
+
+  </body>
+</html>
