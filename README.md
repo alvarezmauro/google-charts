@@ -1,4 +1,4 @@
-googleCharts
+Google Charts
 ============
 
-Google Charts - Examples
+A few examples of charts using this awesome (and simple) library.
